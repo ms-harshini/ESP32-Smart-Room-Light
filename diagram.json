@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "author": "ESP32 Smart Room Light",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "wokwi-esp32-devkit-v1",
+      "id": "esp",
+      "top": 0,
+      "left": 0,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-pir-motion-sensor",
+      "id": "pir1",
+      "top": 10,
+      "left": 320,
+      "attrs": {
+        "delayTime": "1",
+        "inhibitTime": "1.2"
+      }
+    },
+    {
+      "type": "wokwi-photoresistor-sensor",
+      "id": "ldr1",
+      "top": 160,
+      "left": 320,
+      "attrs": {
+        "lux": "100"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": 280,
+      "left": 50,
+      "attrs": {
+        "color": "yellow"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 280,
+      "left": 180,
+      "rotate": 90,
+      "attrs": {
+        "value": "220"
+      }
+    }
+  ],
+  "connections": [
+    ["pir1:VCC", "esp:3V3", "red", []],
+    ["pir1:GND", "esp:GND.1", "black", []],
+    ["pir1:OUT", "esp:D27", "green", []],
+
+    ["ldr1:VCC", "esp:3V3", "red", []],
+    ["ldr1:GND", "esp:GND.1", "black", []],
+    ["ldr1:AO", "esp:D34", "blue", []],
+
+    ["esp:D18", "r1:1", "orange", []],
+    ["r1:2", "led1:A", "orange", []],
+    ["led1:C", "esp:GND.1", "black", []],
+
+    ["esp:TX0", "$serialMonitor:RX", "", []],
+    ["esp:RX0", "$serialMonitor:TX", "", []]
+  ],
+  "serialMonitor": {
+    "display": "terminal"
+  }
+}
